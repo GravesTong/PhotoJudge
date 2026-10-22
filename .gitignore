@@ -15,7 +15,6 @@ env/
 # 引擎大原图 / 中间缩放（仓库只保留示例报告、判据输入与标注图）
 engine/poor-source.jpg
 engine/poor-scaled.jpg
-engine/test-photo-scaled.jpg
 
 # ===== 自检 / 截图产物 =====
 _shots/
