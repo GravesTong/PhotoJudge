@@ -1,0 +1,158 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "photo-judge/report-schema.json",
+  "title": "PhotoJudge 诊断报告 Schema",
+  "description": "PhotoJudge（摄判官）照片点评/诊断引擎的输出契约。一份诊断报告同时以 JSON（本 schema）与 Markdown（report-template.md）输出，两者字段一一对应。",
+  "type": "object",
+  "required": ["schema_version", "photo", "total", "dimensions", "issues", "edits"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0",
+      "description": "本 schema 版本。"
+    },
+    "photo": {
+      "type": "object",
+      "description": "被点评照片的元信息与用户输入。",
+      "required": ["subject", "purpose"],
+      "properties": {
+        "id": { "type": "string", "description": "照片标识（文件名/URL/会话 id）。" },
+        "subject": {
+          "type": "string",
+          "enum": ["portrait", "landscape", "food", "street", "pet", "selfie", "other"],
+          "description": "拍摄题材，决定权重分配。用户未给时按 'other' 均衡权重。"
+        },
+        "purpose": {
+          "type": "string",
+          "enum": ["social", "print", "contest", "record"],
+          "description": "用途（可选），影响评分侧重说明。"
+        }
+      }
+    },
+    "weights": {
+      "type": "object",
+      "description": "本张照片实际采用的题材权重（满分制，和为 100）。后期建议维度不参与权重，故不在此列。",
+      "required": ["composition", "exposure", "focus", "color", "subject"],
+      "properties": {
+        "composition": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "exposure":     { "type": "integer", "minimum": 0, "maximum": 100 },
+        "focus":        { "type": "integer", "minimum": 0, "maximum": 100 },
+        "color":        { "type": "integer", "minimum": 0, "maximum": 100 },
+        "subject":      { "type": "integer", "minimum": 0, "maximum": 100 }
+      }
+    },
+    "total": {
+      "type": "object",
+      "description": "总评分（0–10 加权）与等级。",
+      "required": ["score", "max", "level", "summary"],
+      "properties": {
+        "score": { "type": "number", "minimum": 0, "maximum": 10 },
+        "max":   { "type": "integer", "const": 10 },
+        "level": {
+          "type": "string",
+          "enum": ["优秀", "良好", "及格", "不及格", "严重问题"],
+          "description": "等级映射：≥9 优秀 / 7–8.9 良好 / 5–6.9 及格 / 3–4.9 不及格 / <3 严重问题。"
+        },
+        "summary": { "type": "string", "description": "一句话总结，给用户最核心的结论与最该改的一件事。" }
+      }
+    },
+    "dimensions": {
+      "type": "array",
+      "description": "六维分项评分（含后期建议维度）。",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "score", "max"],
+        "properties": {
+          "id":    { "type": "string", "enum": ["COMP", "EXP", "FOC", "COL", "SUB", "PPC"] },
+          "name":  { "type": "string", "description": "维度中文名。" },
+          "score": { "type": "number", "minimum": 0, "maximum": 10 },
+          "max":   { "type": "integer", "const": 10 },
+          "highlights": {
+            "type": "array", "items": { "type": "string" },
+            "description": "该维度做得好的点（引用规则 id 与理由）。"
+          },
+          "issues": {
+            "type": "array", "items": { "type": "string" },
+            "description": "该维度的问题（引用规则 id 与理由）。"
+          }
+        }
+      }
+    },
+    "issues": {
+      "type": "array",
+      "description": "跨维度汇总的问题清单，按影响优先级排序。",
+      "items": {
+        "type": "object",
+        "required": ["rule_id", "dimension", "impact", "reason", "action"],
+        "properties": {
+          "rule_id":  { "type": "string", "description": "命中的规则条目 id，如 COMP-002；可追溯到 rules/ 对应文件。" },
+          "dimension": { "type": "string", "enum": ["COMP", "EXP", "FOC", "COL", "SUB", "PPC"] },
+          "impact":   { "type": "string", "enum": ["high", "medium", "low"], "description": "对成片的影响程度。" },
+          "reason":   { "type": "string", "description": "为什么判为问题（依据规则 why，可解释）。" },
+          "action":   { "type": "string", "description": "可执行的修改动作（依据规则 how）。" },
+          "conflicts": { "type": ["string", "null"], "description": "如命中冲突点，标注见 conflicts.md 的 Kx。" }
+        }
+      }
+    },
+    "edits": {
+      "type": "array",
+      "description": "可修复问题的后期方案，手机/电脑双口径。",
+      "items": {
+        "type": "object",
+        "required": ["issue"],
+        "properties": {
+          "issue":    { "type": "string", "description": "对应的问题（rule_id）。" },
+          "mobile":   { "type": ["string", "null"], "description": "手机端（醒图/VSCO/LR 移动端）具体参数/操作；无手机口径时置 null 并在文案注明。" },
+          "desktop":  { "type": ["string", "null"], "description": "电脑端（LR/PS）具体参数/操作。" }
+        }
+      }
+    },
+    "annotations": {
+      "type": "object",
+      "description": "视觉标注参数：在原图上用真实位置叠加诊断标记，忠于原图，不重绘。仅对可客观定位的问题给出。",
+      "properties": {
+        "rule_of_thirds": { "type": "boolean", "description": "是否叠加三分线网格。" },
+        "subject_point":  { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2, "description": "主体所在坐标 [x, y]，相对原图 0–1 归一化。" },
+        "horizon": {
+          "type": "object",
+          "properties": {
+            "angle": { "type": "number", "description": "地平线倾斜角（度），0 为水平。" },
+            "rotated": { "type": "boolean", "description": "是否判定需要校正。" }
+          }
+        },
+        "overexposure_mask": { "type": "boolean", "description": "是否高亮过曝区（死白区域）。" },
+        "underexposure_mask": { "type": "boolean", "description": "是否高亮死黑区域。" },
+        "crop_box": {
+          "type": "object",
+          "description": "建议裁切框（归一化坐标 0–1）。",
+          "properties": {
+            "x": { "type": "number" }, "y": { "type": "number" },
+            "width": { "type": "number" }, "height": { "type": "number" }
+          }
+        },
+        "issue_marks": {
+          "type": "array",
+          "description": "问题标注：把诊断问题文字标到原图对应位置（白字细黑边，字号随图自适应）。",
+          "items": {
+            "type": "object",
+            "required": ["rule_id", "label", "position"],
+            "properties": {
+              "rule_id": { "type": "string", "description": "对应的问题规则 id。" },
+              "label":   { "type": "string", "description": "图上显示的简短问题文字。" },
+              "position": { "type": "array", "items": { "type": "number" }, "minItems": 2, "maxItems": 2, "description": "标注锚点 [x, y]，相对原图 0–1 归一化。" }
+            }
+          }
+        }
+      }
+    },
+    "sources": {
+      "type": "object",
+      "description": "本报告实际引用的规则与来源溯源。",
+      "properties": {
+        "rules_referenced": { "type": "array", "items": { "type": "string" }, "description": "命中的规则 id 列表。" },
+        "conflicts_referenced": { "type": "array", "items": { "type": "string" }, "description": "引用的冲突点（Kx），如有。" },
+        "note": { "type": "string", "description": "溯源说明：规则来自 rules/，原始来源见各规则条目 source 字段。" }
+      }
+    }
+  }
+}

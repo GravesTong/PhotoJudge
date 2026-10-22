@@ -1,0 +1,33 @@
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# ===== 环境与密钥 =====
+.env
+.env.*
+*.local
+
+# ===== 本项目运行产物 =====
+# 引擎大原图 / 中间缩放（仓库只保留示例报告、判据输入与标注图）
+engine/poor-source.jpg
+engine/poor-scaled.jpg
+engine/test-photo-scaled.jpg
+
+# ===== 自检 / 截图产物 =====
+_shots/
+*.png.bak
+
+# ===== 系统 / 编辑器 =====
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+
+# ===== 其它 =====
+*.log
+node_modules/

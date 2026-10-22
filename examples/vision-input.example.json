@@ -1,0 +1,22 @@
+{
+  "photo": { "id": "example.jpg", "subject": "portrait", "purpose": "social" },
+  "matches": [
+    { "rule_id": "EXP-011", "impact": "high",   "note": "逆光背光，人物面部偏暗看不清" },
+    { "rule_id": "EXP-007", "impact": "high",   "note": "暗部（人脸）细节丢失，呈死黑" },
+    { "rule_id": "COMP-001", "impact": "medium", "note": "背景高光与光晕分散视线" },
+    { "rule_id": "FOC-001", "impact": "low",    "note": "画面整体略朦胧，主体不够锐利" }
+  ],
+  "highlights": [
+    { "rule_id": "SUB-001", "note": "主题相对清晰，一眼可辨为环境人像" }
+  ],
+  "annotations": {
+    "rule_of_thirds": true,
+    "subject_point": [0.5, 0.45],
+    "overexposure_mask": true,
+    "issue_marks": [
+      { "rule_id": "EXP-011", "label": "逆光脸黑", "position": [0.5, 0.4] },
+      { "rule_id": "EXP-007", "label": "暗部死黑", "position": [0.4, 0.62] },
+      { "rule_id": "COMP-001", "label": "光晕分散视线", "position": [0.72, 0.44] }
+    ]
+  }
+}

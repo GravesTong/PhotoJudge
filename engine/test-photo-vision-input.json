@@ -1,0 +1,17 @@
+{
+  "photo": { "id": "微信图片_20261011184028_809_540.jpg", "subject": "portrait", "purpose": "social" },
+  "matches": [
+    { "rule_id": "EXP-011", "impact": "medium", "note": "黄昏逆光氛围下，人物暗部（外套/面部阴影侧）偏暗、明暗对比偏大，可用反光板补光或在后期提亮阴影，避免主体发黑" },
+    { "rule_id": "COMP-006", "impact": "low", "note": "侧身人像需确认视线前方留白充足，避免视线被画面边缘堵住" }
+  ],
+  "highlights": [
+    { "rule_id": "COL-002", "note": "黄昏暖黄氛围保留，未被 AWB 抹平成中性白，色温处理正确" },
+    { "rule_id": "SUB-001", "note": "主题鲜明——黄昏山野氛围人像，一眼可辨" },
+    { "rule_id": "SUB-003", "note": "主体从山野背景中分离，画面干净，做了减法" }
+  ],
+  "annotations": {
+    "rule_of_thirds": true,
+    "subject_point": [0.42, 0.45],
+    "horizon": { "angle": 1, "rotated": false }
+  }
+}

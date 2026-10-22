@@ -1,0 +1,221 @@
+{
+  "schema_version": "1.0",
+  "photo": {
+    "id": "夜景背光人像（学员照）",
+    "subject": "portrait",
+    "purpose": "social"
+  },
+  "weights": {
+    "composition": 30,
+    "exposure": 25,
+    "focus": 20,
+    "color": 15,
+    "subject": 10
+  },
+  "total": {
+    "score": 7.3,
+    "max": 10,
+    "level": "良好",
+    "summary": "整体 良好（7.3/10）。最该先改：EXP-011——逆光背光，脸部被后方路灯强光遮挡发黑、看不清人像"
+  },
+  "dimensions": [
+    {
+      "id": "COMP",
+      "name": "构图",
+      "score": 8.5,
+      "max": 10,
+      "highlights": [],
+      "issues": [
+        "COMP-001"
+      ]
+    },
+    {
+      "id": "EXP",
+      "name": "曝光",
+      "score": 3.5,
+      "max": 10,
+      "highlights": [],
+      "issues": [
+        "EXP-011",
+        "EXP-007",
+        "EXP-009"
+      ]
+    },
+    {
+      "id": "FOC",
+      "name": "对焦与清晰度",
+      "score": 8.5,
+      "max": 10,
+      "highlights": [],
+      "issues": [
+        "FOC-001"
+      ]
+    },
+    {
+      "id": "COL",
+      "name": "色彩与白平衡",
+      "score": 9.5,
+      "max": 10,
+      "highlights": [],
+      "issues": [
+        "COL-003"
+      ]
+    },
+    {
+      "id": "SUB",
+      "name": "内容与主体",
+      "score": 7.5,
+      "max": 10,
+      "highlights": [],
+      "issues": [
+        "SUB-001"
+      ]
+    },
+    {
+      "id": "PPC",
+      "name": "后期建议",
+      "score": 10.0,
+      "max": 10,
+      "highlights": [],
+      "issues": []
+    }
+  ],
+  "issues": [
+    {
+      "rule_id": "EXP-011",
+      "dimension": "EXP",
+      "impact": "high",
+      "reason": "逆光背光，脸部被后方路灯强光遮挡发黑、看不清人像",
+      "action": "逆光脸黑成剪影时要求反光板斜上方补；脸比背景还亮是补过了，板退远；没有反光板可用白墙、白色 T 恤代替。",
+      "conflicts": null
+    },
+    {
+      "rule_id": "EXP-007",
+      "dimension": "EXP",
+      "impact": "high",
+      "reason": "暗部（人脸）细节丢失，呈死黑",
+      "action": "过曝/欠曝时拍后按 INFO/DISP 看直方图；高调片允许右侧亮部过曝但主体（人脸）不能撞墙；电脑端 Alt(Opt)+拖滑块可单独查看哪一通道被裁。",
+      "conflicts": null
+    },
+    {
+      "rule_id": "SUB-001",
+      "dimension": "SUB",
+      "impact": "high",
+      "reason": "戴口罩+脸黑，主体辨认困难，主题不鲜明",
+      "action": "按下快门前自问\"这张我到底要表现什么\"；若一句话说不清，就重新取景或放弃；旅行/环境人像先决定\"这张要表现人还是表现环境\"，再决定景别与构图。",
+      "conflicts": null
+    },
+    {
+      "rule_id": "EXP-009",
+      "dimension": "EXP",
+      "impact": "medium",
+      "reason": "路灯高光与暗部光比过大，单张难以两全",
+      "action": "天空过曝白云死白、地面死黑时，建议包围曝光拍 3 张后期 LR/PS 合成，而非单张硬拉；人像可用补光，风光只能靠合成或渐变镜。",
+      "conflicts": null
+    },
+    {
+      "rule_id": "FOC-001",
+      "dimension": "FOC",
+      "impact": "medium",
+      "reason": "画面整体朦胧，主体不够锐利（夜景高感）",
+      "action": "要背景虚化不仅靠大光圈，用长焦+近距离更明显；要大景深可用广角端；拍特写/微距必须精确对焦。",
+      "conflicts": null
+    },
+    {
+      "rule_id": "COMP-001",
+      "dimension": "COMP",
+      "impact": "medium",
+      "reason": "路灯强光与光晕分散视线，未有效引到主体",
+      "action": "主体不突出、视线被边缘杂物抢走时，裁掉干扰物、把主体放到视觉落点上，而非生硬套三分法。",
+      "conflicts": null
+    },
+    {
+      "rule_id": "COL-003",
+      "dimension": "COL",
+      "impact": "low",
+      "reason": "夜景路灯暖光与暗部色调混杂，白平衡需校正",
+      "action": "照片发绿（树荫下、荧光灯下）→右拉加品红；发紫→左拉加绿。想要日系小清新往左上偏+略降色温；港风往右上偏；复古怀旧往右下偏。电脑 LR Basic 面板 Tint；手机 Color>Custom>Tint。",
+      "conflicts": null
+    }
+  ],
+  "edits": [],
+  "annotations": {
+    "rule_of_thirds": true,
+    "subject_point": [
+      0.5,
+      0.45
+    ],
+    "overexposure_mask": true,
+    "issue_marks": [
+      {
+        "rule_id": "EXP-011",
+        "label": "脸被路灯强光遮黑",
+        "position": [
+          0.5,
+          0.4
+        ]
+      },
+      {
+        "rule_id": "EXP-007",
+        "label": "暗部死黑",
+        "position": [
+          0.4,
+          0.62
+        ]
+      },
+      {
+        "rule_id": "EXP-009",
+        "label": "路灯过曝·光比过大",
+        "position": [
+          0.68,
+          0.3
+        ]
+      },
+      {
+        "rule_id": "COMP-001",
+        "label": "光晕分散视线",
+        "position": [
+          0.72,
+          0.44
+        ]
+      },
+      {
+        "rule_id": "FOC-001",
+        "label": "整体朦胧",
+        "position": [
+          0.18,
+          0.74
+        ]
+      },
+      {
+        "rule_id": "SUB-001",
+        "label": "戴口罩·主体不清",
+        "position": [
+          0.55,
+          0.6
+        ]
+      },
+      {
+        "rule_id": "COL-003",
+        "label": "白平衡失衡",
+        "position": [
+          0.2,
+          0.5
+        ]
+      }
+    ]
+  },
+  "sources": {
+    "rules_referenced": [
+      "COL-003",
+      "COMP-001",
+      "EXP-007",
+      "EXP-009",
+      "EXP-011",
+      "FOC-001",
+      "SUB-001"
+    ],
+    "conflicts_referenced": [],
+    "note": "规则来自 rules/，原始来源见各条目 source 字段"
+  }
+}

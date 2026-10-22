@@ -1,0 +1,136 @@
+{
+  "schema_version": "1.0",
+  "photo": {
+    "id": "demo-portrait.jpg",
+    "subject": "portrait",
+    "purpose": "social"
+  },
+  "weights": {
+    "composition": 30,
+    "exposure": 25,
+    "focus": 20,
+    "color": 15,
+    "subject": 10
+  },
+  "total": {
+    "score": 8.6,
+    "max": 10,
+    "level": "良好",
+    "summary": "整体 良好（8.6/10）。最该先改：EXP-001——天空高光溢出"
+  },
+  "dimensions": [
+    {
+      "id": "COMP",
+      "name": "构图",
+      "score": 8.5,
+      "max": 10,
+      "highlights": [],
+      "issues": [
+        "COMP-002"
+      ]
+    },
+    {
+      "id": "EXP",
+      "name": "曝光",
+      "score": 7.5,
+      "max": 10,
+      "highlights": [],
+      "issues": [
+        "EXP-001"
+      ]
+    },
+    {
+      "id": "FOC",
+      "name": "对焦与清晰度",
+      "score": 8.5,
+      "max": 10,
+      "highlights": [],
+      "issues": [
+        "FOC-001"
+      ]
+    },
+    {
+      "id": "COL",
+      "name": "色彩与白平衡",
+      "score": 10.0,
+      "max": 10,
+      "highlights": [],
+      "issues": []
+    },
+    {
+      "id": "SUB",
+      "name": "内容与主体",
+      "score": 10.0,
+      "max": 10,
+      "highlights": [
+        "主体突出，背景干净"
+      ],
+      "issues": []
+    },
+    {
+      "id": "PPC",
+      "name": "后期建议",
+      "score": 9.5,
+      "max": 10,
+      "highlights": [],
+      "issues": [
+        "PPC-009"
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "rule_id": "EXP-001",
+      "dimension": "EXP",
+      "impact": "high",
+      "reason": "天空高光溢出",
+      "action": "背景虚不掉→光圈开大（数值调小）；运动糊→快门加快；夜拍黑→先开大光圈+慢快门，最后才提 ISO。",
+      "conflicts": null
+    },
+    {
+      "rule_id": "COMP-002",
+      "dimension": "COMP",
+      "impact": "medium",
+      "reason": "主体居中偏呆板，未落三分点",
+      "action": "主体贴边或居中呆板时，把主体挪到四个三分交叉点之一；新手先开相机九宫格辅助线。",
+      "conflicts": null
+    },
+    {
+      "rule_id": "FOC-001",
+      "dimension": "FOC",
+      "impact": "medium",
+      "reason": "人像对焦落在鼻尖而非眼睛",
+      "action": "要背景虚化不仅靠大光圈，用长焦+近距离更明显；要大景深可用广角端；拍特写/微距必须精确对焦。",
+      "conflicts": null
+    },
+    {
+      "rule_id": "PPC-009",
+      "dimension": "PPC",
+      "impact": "low",
+      "reason": "手机端需补校色流程",
+      "action": "手机校色流程=Edit>Light（五滑块）→Color（Temp/Tint/Vibrance/Saturation）→Color>Mix（HSL）→Effects（Texture/Clarity/Dehaze）→Detail（Sharpen/Noise）→Optics（Lens 校正）。给新手建议时，手机=醒图/VSCO 同名滑块直接用；电脑=LR 五滑块+HSL+Detail。",
+      "conflicts": null
+    }
+  ],
+  "edits": [
+    {
+      "issue": "PPC-009",
+      "mobile": null,
+      "desktop": "手机校色流程=Edit>Light（五滑块）→Color（Temp/Tint/Vibrance/Saturation）→Color>Mix（HSL）→Effects（Texture/Clarity/Dehaze）→Detail（Sharpen/Noise）→Optics（Lens 校正）。给新手建议时，手机=醒图/VSCO 同名滑块直接用；电脑=LR 五滑块+HSL+Detail。"
+    }
+  ],
+  "annotations": {
+    "rule_of_thirds": true,
+    "overexposure_mask": true
+  },
+  "sources": {
+    "rules_referenced": [
+      "COMP-002",
+      "EXP-001",
+      "FOC-001",
+      "PPC-009"
+    ],
+    "conflicts_referenced": [],
+    "note": "规则来自 rules/，原始来源见各条目 source 字段"
+  }
+}

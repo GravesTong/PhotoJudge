@@ -1,0 +1,27 @@
+{
+  "photo": { "id": "夜景背光人像（学员照）", "subject": "portrait", "purpose": "social" },
+  "matches": [
+    { "rule_id": "EXP-011", "impact": "high", "note": "逆光背光，脸部被后方路灯强光遮挡发黑、看不清人像" },
+    { "rule_id": "EXP-007", "impact": "high", "note": "暗部（人脸）细节丢失，呈死黑" },
+    { "rule_id": "EXP-009", "impact": "medium", "note": "路灯高光与暗部光比过大，单张难以两全" },
+    { "rule_id": "FOC-001", "impact": "medium", "note": "画面整体朦胧，主体不够锐利（夜景高感）" },
+    { "rule_id": "COMP-001", "impact": "medium", "note": "路灯强光与光晕分散视线，未有效引到主体" },
+    { "rule_id": "SUB-001", "impact": "high", "note": "戴口罩+脸黑，主体辨认困难，主题不鲜明" },
+    { "rule_id": "COL-003", "impact": "low", "note": "夜景路灯暖光与暗部色调混杂，白平衡需校正" }
+  ],
+  "highlights": [],
+  "annotations": {
+    "rule_of_thirds": true,
+    "subject_point": [0.5, 0.45],
+    "overexposure_mask": true,
+    "issue_marks": [
+      { "rule_id": "EXP-011", "label": "脸被路灯强光遮黑", "position": [0.5, 0.4] },
+      { "rule_id": "EXP-007", "label": "暗部死黑", "position": [0.4, 0.62] },
+      { "rule_id": "EXP-009", "label": "路灯过曝·光比过大", "position": [0.68, 0.3] },
+      { "rule_id": "COMP-001", "label": "光晕分散视线", "position": [0.72, 0.44] },
+      { "rule_id": "FOC-001", "label": "整体朦胧", "position": [0.18, 0.74] },
+      { "rule_id": "SUB-001", "label": "戴口罩·主体不清", "position": [0.55, 0.6] },
+      { "rule_id": "COL-003", "label": "白平衡失衡", "position": [0.2, 0.5] }
+    ]
+  }
+}

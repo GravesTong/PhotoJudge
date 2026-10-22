@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "photo-judge/report-batch-schema.json",
+  "title": "PhotoJudge 多图批量诊断报告 Schema",
+  "description": "用户一次上传多张照片（N≥2）时的输出契约。外层为批量汇总容器（排行、统计、一句话结论），内层每张照片复用单图 report-schema.json 的独立报告，保证单张/多张口径完全一致。",
+  "type": "object",
+  "required": ["schema_version", "mode", "count", "ranking", "summary", "reports"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0",
+      "description": "与单图 report-schema.json 同步的 schema 版本。"
+    },
+    "mode": {
+      "type": "string",
+      "const": "batch",
+      "description": "批量模式标识，用于区分单图输出（单图不含此字段或为 single）。"
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 2,
+      "description": "本次批量诊断的照片数量。"
+    },
+    "subject": {
+      "type": "string",
+      "enum": ["portrait", "landscape", "food", "street", "pet", "selfie", "other"],
+      "description": "批量共用的题材，决定默认权重；单张可在其 photo 字段内覆盖。"
+    },
+    "purpose": {
+      "type": "string",
+      "enum": ["social", "print", "contest", "record"],
+      "description": "批量共用的用途（可选）。"
+    },
+    "summary": {
+      "type": "string",
+      "description": "一句话批量结论：最优/最差/共同问题/最该集体提升的维度等。"
+    },
+    "ranking": {
+      "type": "array",
+      "description": "按总评分降序的排行，供选片与横向对比。",
+      "items": {
+        "type": "object",
+        "required": ["rank", "photo", "score", "level"],
+        "properties": {
+          "rank":     { "type": "integer", "minimum": 1, "description": "名次，1 为最优。" },
+          "photo":    { "type": "string", "description": "照片标识（文件名/URL/会话 id），与 reports 内 photo.id 对应。" },
+          "score":    { "type": "number", "minimum": 0, "maximum": 10 },
+          "level":    { "type": "string", "enum": ["优秀", "良好", "及格", "不及格", "严重问题"] },
+          "top_issue": { "type": ["string", "null"], "description": "该张最该先改的问题 rule_id，无则 null。" }
+        }
+      }
+    },
+    "stats": {
+      "type": "object",
+      "description": "批量统计（可选）。",
+      "properties": {
+        "best":     { "type": "string", "description": "总分最高的照片标识。" },
+        "worst":    { "type": "string", "description": "总分最低的照片标识。" },
+        "avg":      { "type": "number", "minimum": 0, "maximum": 10, "description": "各张总分均值。" }
+      }
+    },
+    "reports": {
+      "type": "array",
+      "description": "每张照片的独立诊断报告，每一项完全符合 report-schema.json（单图契约）。",
+      "items": { "$ref": "report-schema.json" }
+    },
+    "annotated_artifacts": {
+      "type": "object",
+      "description": "每张照片的标注图产物路径映射（photo 标识 -> 标注图路径），便于交付与预览。",
+      "additionalProperties": { "type": "string" }
+    }
+  }
+}
