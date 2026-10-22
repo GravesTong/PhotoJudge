@@ -5,13 +5,13 @@
 ## 输入示例
 
 - [`vision-input.example.json`](vision-input.example.json)：一份完整的视觉判据输入（vision input），展示了 `photo` / `matches` / `highlights` / `annotations`（含 `issue_marks`）字段的写法。
-- 更多真实判据输入见 `../engine/`（如 `test-photo-vision-input.json`、`poor-vision-input.json`）。
+- 更多真实判据输入见 `../engine/`（如 `poor-vision-input.json`）。
 
 ## 输出示例
 
-- 单图报告 JSON：`../engine/test-photo-report.json`（9.5/10 优秀示例）、`../engine/poor-report.json`（7.3/10，曝光硬伤示例）。
+- 单图报告 JSON：`../engine/poor-report.json`（7.3/10，曝光硬伤示例）。
 - 报告模板：`../output/report-template.md`。
-- 标注图：`../engine/test-photo-annotated.jpg`、`../engine/poor-annotated.jpg`（问题文字标注示例）。
+- 标注图：`../engine/poor-annotated.jpg`（问题文字标注示例）。
 
 ## 快速试跑
 
