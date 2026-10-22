@@ -67,10 +67,6 @@ python annotate.py 原图.jpg --annotations report.json --output 标注图.jpg
 
 *夜景背光差照（7.3/10）：过曝、人脸被路灯强光遮黑、暗部死黑等问题直接标注在图上。*
 
-![黄昏人像诊断（9.5/10）：构图与用光到位](engine/test-photo-annotated.jpg)
-
-*黄昏人像（9.5/10）：构图与用光得当，标注展示了可执行改进点。*
-
 > 想自己跑一遍？`cd engine && python score.py --demo` 即可复现报告与标注图。
 
 ---
