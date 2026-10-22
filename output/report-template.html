@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>照片诊断报告 · PhotoJudge 摄判官</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='4' fill='%23d4a24c'/><circle cx='12' cy='12' r='5' fill='none' stroke='%2316191f' stroke-width='2.4'/><line x1='12' y1='2.5' x2='12' y2='6' stroke='%2316191f' stroke-width='2'/><line x1='12' y1='18' x2='12' y2='21.5' stroke='%2316191f' stroke-width='2'/><line x1='2.5' y1='12' x2='6' y2='12' stroke='%2316191f' stroke-width='2'/><line x1='18' y1='12' x2='21.5' y2='12' stroke='%2316191f' stroke-width='2'/></svg>">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#16181d; --panel:#1e2126; --panel2:#22262c;
+    --line:#2e333b; --gold:#d4a24c; --gold-soft:#8a6f3a;
+    --text:#eceef1; --muted:#9aa3ad; --good:#3fae7a;
+  }
+  html{-webkit-text-size-adjust:100%}
+  body{font-family:"Noto Sans SC",-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);line-height:1.6;font-size:15px}
+  .wrap{max-width:880px;margin:0 auto;padding:28px 20px 56px}
+  .tag{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.12em;color:var(--gold-soft);text-transform:uppercase;font-weight:600;margin-bottom:10px}
+  .tag::before{content:"";width:18px;height:1px;background:var(--gold)}
+  h1{font-size:26px;font-weight:700;letter-spacing:.01em}
+  .sub{color:var(--muted);font-size:13px;margin-top:6px}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0;list-style:none}
+  .meta li{font-size:12px;color:var(--muted);background:var(--panel);border:1px solid var(--line);padding:3px 10px;border-radius:999px}
+  .photo{margin-top:22px;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:var(--panel)}
+  .photo img{display:block;width:100%;height:auto}
+  .photo .cap{padding:10px 14px;font-size:12px;color:var(--muted);border-top:1px solid var(--line)}
+  .score{margin-top:26px;display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+  .big{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 24px;min-width:190px;flex:1 1 190px}
+  .big .num{font-size:52px;font-weight:800;line-height:1;color:var(--gold)}
+  .big .num small{font-size:20px;color:var(--muted);font-weight:600}
+  .big .lv{font-size:14px;color:var(--text);margin-top:8px;font-weight:600}
+  .big .go{font-size:12px;color:var(--muted);margin-top:4px}
+  .sum{flex:2 1 300px;font-size:15px;color:var(--text);line-height:1.75;background:var(--panel2);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:8px;padding:16px 18px}
+  h2{font-size:18px;font-weight:700;margin:34px 0 14px;display:flex;align-items:baseline;gap:10px}
+  h2 .en{font-size:12px;color:var(--gold-soft);letter-spacing:.08em;font-weight:600}
+  .dims{display:grid;grid-template-columns:1fr;gap:10px}
+  .dim{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px}
+  .dim .name{font-size:14px;font-weight:600}
+  .dim .bar{grid-column:1;grid-row:2;height:6px;background:#2a2f37;border-radius:3px;overflow:hidden}
+  .dim .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold-soft),var(--gold));border-radius:3px}
+  .dim .val{grid-column:2;grid-row:1/3;font-size:20px;font-weight:700;color:var(--gold);text-align:right}
+  .dim .val small{font-size:11px;color:var(--muted);font-weight:500}
+  .dim.good .bar i{background:linear-gradient(90deg,#2c7d5b,var(--good))}
+  .dim.good .val{color:var(--good)}
+  .issue{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:10px}
+  .issue .hd{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+  .issue .id{font-family:ui-monospace,"Cascadia Mono",Consolas,monospace;font-size:12px;color:var(--gold);font-weight:700}
+  .issue .lvl{font-size:11px;padding:2px 8px;border-radius:999px;font-weight:600}
+  .issue .lvl.high{background:#5b2a2a;color:#ef8b7a}
+  .issue .lvl.med{background:#5b4424;color:#f0c97a}
+  .issue .lvl.low{background:#2a3a46;color:#7fb7cf}
+  .issue .why{font-size:13px;color:var(--muted);margin:8px 0 4px}
+  .issue .act{font-size:13px;color:var(--text)}
+  .issue .act b{color:var(--gold-soft);font-weight:600}
+  .hl{display:flex;gap:8px;flex-wrap:wrap}
+  .hl span{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-size:13px;color:var(--text)}
+  .hl span::before{content:"✓ ";color:var(--good);font-weight:700}
+  .none{font-size:13px;color:var(--muted);background:var(--panel);border:1px dashed var(--line);border-radius:8px;padding:8px 12px}
+  table.edits{width:100%;border-collapse:collapse;margin-top:4px}
+  table.edits th,table.edits td{text-align:left;font-size:13px;border:1px solid var(--line);padding:9px 12px;vertical-align:top}
+  table.edits th{background:var(--panel);color:var(--gold-soft);font-weight:600}
+  table.edits td{background:var(--panel2);color:var(--text)}
+  .ann{display:grid;grid-template-columns:1fr;gap:8px;margin-top:4px}
+  .ann li{list-style:none;display:flex;gap:8px;font-size:13px;color:var(--muted);padding:8px 0;border-bottom:1px dashed var(--line)}
+  .ann li b{color:var(--text);font-weight:600;min-width:84px}
+  .note{margin-top:30px;font-size:12px;color:var(--muted);line-height:1.7;border-top:1px solid var(--line);padding-top:14px}
+  .note a{color:var(--gold-soft);text-decoration:none}
+  @media(min-width:640px){.dims{grid-template-columns:1fr 1fr}.ann{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="tag">PhotoJudge 摄判官</div>
+  <h1>照片诊断报告</h1>
+  <p class="sub">{{PHOTO_TITLE}} · {{PHOTO_DESC}}</p>
+  <ul class="meta">
+    <li>题材：{{SUBJECT}}</li>
+    <li>用途：{{PURPOSE}}</li>
+    <li>照片：{{PHOTO_NAME}}</li>
+  </ul>
+
+  <!-- 标注原图：以 base64 data URI 内嵌，图和报告一体交付、不分开 -->
+  <figure class="photo">
+    <img src="data:image/jpeg;base64,{{ANNOTATED_IMAGE_B64}}" alt="{{PHOTO_DESC}} 的标注诊断图">
+    <figcaption class="cap">{{ANNOTATION_CAPTION}}</figcaption>
+  </figure>
+
+  <div class="score">
+    <div class="big">
+      <div class="num">{{SCORE}}<small>/10</small></div>
+      <div class="lv">{{LEVEL}}</div>
+      <div class="go">题材权重：构图{{W_COMP}} · 曝光{{W_EXP}} · 对焦{{W_FOC}} · 色彩{{W_COL}} · 内容{{W_SUB}}</div>
+    </div>
+    <div class="sum">{{SUMMARY}}</div>
+  </div>
+
+  <h2>六维分项 <span class="en">DIMENSIONS</span></h2>
+  <div class="dims">
+    <div class="dim"><span class="name">构图</span><div class="bar"><i style="width:{{S_COMP}}%"></i></div><div class="val">{{COMP}}<small>/10</small></div></div>
+    <div class="dim"><span class="name">曝光</span><div class="bar"><i style="width:{{S_EXP}}%"></i></div><div class="val">{{EXP}}<small>/10</small></div></div>
+    <div class="dim"><span class="name">对焦与清晰度</span><div class="bar"><i style="width:{{S_FOC}}%"></i></div><div class="val">{{FOC}}<small>/10</small></div></div>
+    <div class="dim"><span class="name">色彩与白平衡</span><div class="bar"><i style="width:{{S_COL}}%"></i></div><div class="val">{{COL}}<small>/10</small></div></div>
+    <div class="dim"><span class="name">内容与主体</span><div class="bar"><i style="width:{{S_SUB}}%"></i></div><div class="val">{{SUB}}<small>/10</small></div></div>
+    <div class="dim"><span class="name">后期建议</span><div class="bar"><i style="width:{{S_PPC}}%"></i></div><div class="val">{{PPC}}<small>/10</small></div></div>
+  </div>
+
+  <h2>问题清单 <span class="en">按影响排序</span></h2>
+  {{ISSUES}}
+
+  <h2>后期方案 <span class="en">手机 / 电脑</span></h2>
+  <table class="edits">
+    <tr><th>问题</th><th>手机端（醒图 / VSCO / LR移动端）</th><th>电脑端（LR / PS）</th></tr>
+    {{EDITS}}
+  </table>
+
+  <h2>标注说明 <span class="en">忠于原图</span></h2>
+  <ul class="ann">
+    <li><b>三分线</b>{{ANNOTATION_THIRDS}}</li>
+    <li><b>主体位置</b>{{ANNOTATION_SUBJECT}}</li>
+    <li><b>地平线</b>{{ANNOTATION_HORIZON}}</li>
+    <li><b>过曝 / 死黑</b>{{ANNOTATION_MASK}}</li>
+    <li><b>裁切框</b>{{ANNOTATION_CROP}}</li>
+  </ul>
+
+  <div class="note">
+    PhotoJudge（摄判官）· 照片六维诊断引擎 · 数据契约见 <code>docs/report-schema.json</code><br>
+    规则依据 <code>rules/</code> 六维打分规则（COMP / EXP / FOC / COL / SUB / PPC）；标注只叠加展示、忠于原图真实位置、不改动原图像素。<br>
+    MIT License · 开源：<a href="https://github.com/GravesTong/PhotoJudge">github.com/GravesTong/PhotoJudge</a>
+  </div>
+
+</div>
+</body>
+</html>

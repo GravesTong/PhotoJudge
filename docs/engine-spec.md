@@ -1,6 +1,6 @@
 # PhotoJudge 引擎规范（Engine Spec）
 
-> 说明"照片 → 诊断报告"的最小可用闭环如何工作：视觉分析 → 规则匹配 → 打分 → 生成报告 → 视觉标注。输出契约见 `docs/report-schema.json` 与 `output/report-template.md`。
+> 说明"照片 → 诊断报告"的最小可用闭环如何工作：视觉分析 → 规则匹配 → 打分 → 生成报告 → 视觉标注。交付标准为纯黑背景 HTML 报告（标注原图内嵌，模板 `output/report-template.html`）；数据契约见 `docs/report-schema.json`。
 
 ## 一、输入
 
@@ -93,9 +93,9 @@
 
 ## 三、输出
 
-- 同一份报告双格式输出：
+- 交付标准：**单文件纯黑背景 HTML 诊断报告**（标注原图以 base64 内嵌，图和报告一体、不分开）。
+  - **HTML**（人可读交付）：`output/report-template.html` 渲染，给用户看。
   - **JSON**（机器可读）：`docs/report-schema.json` 定义，供程序消费。
-  - **Markdown**（人可读）：`output/report-template.md` 渲染，给用户看。
 - 两格式字段一一对应，用同一份数据生成，避免口径分裂。
 
 ### 多张照片（批量）输出

@@ -19,7 +19,7 @@ rules/          六维打分规则（composition/exposure/focus/color/subject/po
 engine/         打分引擎（load_rules / score / annotate）
 docs/           架构、引擎规范、报告 schema、发布流程
 examples/       示例输入与输出
-output/         报告 Markdown 模板
+output/         报告 HTML 模板（标注图内嵌）
 ```
 
 ## 贡献类型

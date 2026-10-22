@@ -10,7 +10,7 @@
 ## 输出示例
 
 - 单图报告 JSON：`../engine/poor-report.json`（7.3/10，曝光硬伤示例）。
-- 报告模板：`../output/report-template.md`。
+- 报告模板：`../output/report-template.html`（纯黑背景，标注图内嵌）。
 - 标注图：`../engine/poor-annotated.jpg`（问题文字标注示例）。
 
 ## 快速试跑

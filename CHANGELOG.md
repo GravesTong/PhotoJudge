@@ -33,4 +33,4 @@
 - 产品框架定稿：六维诊断、题材权重默认值、输出结构、硬约束
 - Skill 骨架：SKILL.md、规则占位、输出模板、架构说明、LICENSE（MIT）
 - `engine/score.py` 打分引擎：题材加权、影响扣分、问题排序、报告 JSON 输出，`--demo` 可运行
-- JSON schema 与 Markdown 双格式输出契约
+- JSON schema + 纯黑背景 HTML 报告模板（标注图内嵌）输出契约

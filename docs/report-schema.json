@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "photo-judge/report-schema.json",
   "title": "PhotoJudge 诊断报告 Schema",
-  "description": "PhotoJudge（摄判官）照片点评/诊断引擎的输出契约。一份诊断报告同时以 JSON（本 schema）与 Markdown（report-template.md）输出，两者字段一一对应。",
+  "description": "PhotoJudge（摄判官）照片点评/诊断引擎的输出契约。一份诊断报告以 JSON（本 schema）记录数据，并以纯黑背景 HTML 报告（report-template.html，标注图内嵌）交付，两者字段一一对应。",
   "type": "object",
   "required": ["schema_version", "photo", "total", "dimensions", "issues", "edits"],
   "properties": {

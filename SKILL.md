@@ -5,7 +5,7 @@ description: PhotoJudge（摄判官）照片点评/诊断引擎。用户上传�
 
 # PhotoJudge（摄判官）— 照片点评 / 诊断引擎
 
-> 状态：骨架版（v0.1 草稿）。六维打分规则条目已按规则依据库填充至 `rules/`（72 条目 + 8 冲突点），填充依据见 `docs/architecture.md` 与 `rules/README.md`。
+> 状态：v0.2。六维打分规则已填充至 `rules/`（72 条目）；交付格式已定稿为「纯黑背景 HTML 报告（标注原图内嵌）」。填充依据见 `docs/architecture.md` 与 `rules/README.md`。
 
 ## 定位
 
@@ -55,15 +55,22 @@ description: PhotoJudge（摄判官）照片点评/诊断引擎。用户上传�
 | 问题清单 | 按影响优先级排序 |
 | 修改动作 | 每条给可执行动作（如"高光溢出→EV−0.7，高光−40"） |
 | 后期方案 | 区分手机（醒图/VSCO）与电脑（LR/PS）的具体步骤 |
-| 视觉标注 | 在原图上用真实位置叠加三分线/水平线/过曝区/可裁切框 |
+| 视觉标注 | 在原图上用真实位置叠加三分线/水平线/过曝区/可裁切框 + 问题文字标注 |
 
-输出契约：`output/report-template.md`（人可读 Markdown）+ `docs/report-schema.json`（机器可读 JSON），两格式字段一一对应；打分与"照片→报告"闭环流程见 `docs/engine-spec.md`。
+## 交付格式（固定）
+
+**对每张照片输出一份「纯黑背景的 HTML 诊断报告」（单文件，可直接打开/分享/嵌入），标注原图与报告合为一体、不分开交付**：
+
+- **标注原图内嵌**：把带问题标注的原图以 base64 data URI 内嵌进 HTML（`<img src="data:image/jpeg;base64,...">`），图和报告在同一份文件里，不单独发图、不另生成文档；
+- HTML 内必须包含：总评（分数/等级/总结）、六维分项、按影响排序的问题清单、修改动作、分设备后期方案、标注说明；
+- 数据契约：`docs/report-schema.json`（机器可读 JSON，字段与 HTML 一一对应）；HTML 模板见 `output/report-template.html`；打分与"照片→报告"闭环见 `docs/engine-spec.md`。
 
 ## 硬约束
 
 - 评分可解释（每条给"为什么 + 怎么改"）。
 - 不评判主观审美/风格好坏，只说"是否偏离通用摄影规则"。
 - 不做"AI 生成图 vs 真实照片"鉴定。
+- 交付物为单文件 HTML 报告，标注原图必须内嵌其中一体交付，不单独分开发图、不生成 Markdown/Word 文档报告。
 - 视觉标注必须忠于原图真实位置，不重绘、不改变原图像素。
 - 后期参数口径区分手机与电脑设备。
 
@@ -75,7 +82,7 @@ PhotoJudge/
 ├── README.md           # 开源说明
 ├── rules/              # 六维打分规则（已填充，72 条）
 ├── engine/             # 打分引擎（load_rules.py + score.py，可运行）
-├── output/             # 诊断报告输出模板（Markdown）
+├── output/             # 诊断报告输出模板（HTML，标注图内嵌）
 ├── docs/               # 架构、引擎规范、报告 JSON schema、依据说明
 └── LICENSE             # MIT
 ```
@@ -83,7 +90,7 @@ PhotoJudge/
 ## 待办
 
 - [x] 填充 `rules/`：六维打分规则条目（依据四类来源：wuwu 摄影库、《纽约摄影学院教材》、Adobe 官方教程、佳能/索尼官方教学）。
-- [x] 定义诊断报告的 JSON schema 与可读 Markdown 双格式输出（`docs/report-schema.json` + `output/report-template.md`）。
+- [x] 定义诊断报告的 JSON schema（`docs/report-schema.json`）+ 纯黑背景 HTML 报告模板（`output/report-template.html`，标注图内嵌）。
 - [x] 打分引擎落地：`engine/score.py` 实现规则匹配、题材加权打分、问题排序、报告输出；视觉分析经 vision input JSON 接入（见 `docs/engine-spec.md`）。
 - [x] 核验并固化题材权重默认值（依据库③节论证，人像/风光权重已定稿）。
 - [x] 视觉分析层验证：已用真实照片跑通「读图→vision input→引擎→诊断报告」完整闭环；图像标注能力经 `annotations` 接口接入。

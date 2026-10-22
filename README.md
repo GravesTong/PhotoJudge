@@ -21,7 +21,7 @@
 
 1. 上传一张照片；
 2. （可选）说明拍摄题材 `portrait / landscape / food / street / pet / selfie / other` 与用途；
-3. 获得诊断报告（JSON / Markdown）+ 标注图。
+3. 获得一份**纯黑背景 HTML 诊断报告**（标注原图以 base64 内嵌，图和报告一体交付）+ JSON 数据。
 
 ### 方式二：本地命令行跑打分引擎
 
@@ -85,7 +85,7 @@ PhotoJudge/
 ├── rules/              # 六维打分规则（72 条）+ 冲突说明 + 索引/权重
 ├── engine/             # 打分引擎（load_rules.py + score.py + annotate.py）
 ├── examples/           # 示例输入 / 输出（可直接参考）
-├── output/             # 诊断报告 Markdown 模板
+├── output/             # 诊断报告输出模板（HTML，标注图内嵌）
 └── docs/               # 架构、引擎规范、报告 schema（单图+批量）、发布流程
 ```
 
@@ -105,7 +105,7 @@ PhotoJudge/
 - [x] 产品框架定稿（六维、题材权重默认值、输出结构、硬约束）
 - [x] 填充 `rules/` 六维规则（72 条）
 - [x] 冲突收敛（7 处收敛，K6 并入规则条目）
-- [x] 定义 JSON schema 与 Markdown 双格式输出（含批量）
+- [x] 定义 JSON schema + 纯黑背景 HTML 报告模板（标注图内嵌，含批量）
 - [x] 打分引擎可运行（`engine/score.py`）
 - [x] 图像标注能力（问题文字标注、白字细黑边）
 - [ ] 视觉分析层实例化（模型多模态读照片产出 vision input）
